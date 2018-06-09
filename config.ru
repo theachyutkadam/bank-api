@@ -1,3 +1,2 @@
-# require_relatice 'service'
-require 'sinatra'
+require_relative 'service'
 run Sinatra::Application
