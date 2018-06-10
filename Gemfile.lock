@@ -85,6 +85,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_record_migrations
+  activerecord
   minitest
   mysql2
   puma
