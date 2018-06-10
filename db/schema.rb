@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_10_063908) do
+ActiveRecord::Schema.define(version: 2018_06_10_070839) do
+
+  create_table "transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "particular"
+    t.integer "user_id"
+    t.decimal "debit", precision: 10
+    t.decimal "credit", precision: 10
+    t.decimal "closing_balance", precision: 10
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "username"
