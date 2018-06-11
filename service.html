@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>bank service</title>
+</head>
+<body>
+  <h4>this is try</h4>
+  <button onclick="showUsers()">Users</button>
+  <button onclick="showTransactions()">Transactions</button>
+  <p id="hello"></p>
+  <script>
+    // function helloFunction() {
+    //   document.getElementById('hello').innerHTML = "Hello this is bank payment applicaion"
+    // }
+
+    function showUsers() {
+      console.log("*****************");
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("hello").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "http://localhost:3001/users", true);
+      xhttp.send();
+    }
+
+
+    function showTransactions() {
+      console.log("*/////////////////*///////////////////////*");
+      var xhttp = new XMLHttpRequest();
+      
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status ==  200) {
+          // var x = document.readyState;
+          document.getElementById("hello").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "http://localhost:3001/transactions", true)
+      xhttp.send();
+    }
+
+
+  </script>
+</body>
+</html>

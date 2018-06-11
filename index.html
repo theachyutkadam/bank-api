@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Client</title>
+    <script type="text/javascript">
+      function Transactions() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+          }
+        }
+        xhttp.open("GET", "http://localhost:3001/transactions", true);
+        xhttp.send();
+      }
+    </script>
+  </head>
+
+  <body>
+    <button type="button", onclick="Transactions()">PlayerSubscription</button>
+  </body>
+
+</html>

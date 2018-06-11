@@ -15,6 +15,11 @@ class Transaction < ActiveRecord::Base
 
 end
 
+before do
+  puts params
+  headers 'Access-Control-Allow-Origin' => "*"
+end
+
 get "/health-check" do
   "OK"
 end
@@ -35,6 +40,18 @@ get "/transaction/:id" do
   if transaction
     status 201
     {transaction: transaction}.to_json
+    {message: "Transaction find"}.to_json
+  else
+    status 404
+    {transaction: "Transaction not found"}.to_json
+  end
+end
+
+put "/transaction/:id" do
+  transaction = Transaction.find_by_id(params[:id])
+  if transaction
+    status 201
+    transaction.update(params)
     {message: "Transaction Update"}.to_json
   else
     status 404
