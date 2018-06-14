@@ -5,43 +5,37 @@
 </head>
 <body>
   <h4>this is try</h4>
+  <input id="username" type="input" name="username", >
   <button onclick="showUsers()">Users</button>
-  <button onclick="showTransactions()">Transactions</button>
-  <p id="hello"></p>
+  <button onclick="createUser()">Create User</button><br>
+  <p id="users"></p>
+  <p id="create"></p>
   <script>
-    // function helloFunction() {
-    //   document.getElementById('hello').innerHTML = "Hello this is bank payment applicaion"
-    // }
-
     function showUsers() {
-      console.log("*****************");
       var xhttp = new XMLHttpRequest();
-
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("hello").innerHTML = this.responseText;
+          document.getElementById("users").innerHTML = this.responseText;
         }
       };
       xhttp.open("GET", "http://localhost:3001/users", true);
       xhttp.send();
     }
 
-
-    function showTransactions() {
-      console.log("*/////////////////*///////////////////////*");
+    function createUser() {
+      username = document.getElementById("username").value;
+      console.log(username);
       var xhttp = new XMLHttpRequest();
-      
       xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status ==  200) {
-          // var x = document.readyState;
-          document.getElementById("hello").innerHTML = this.responseText;
+        if (this.readyState == 4 && this.status == 201) {
+          alert ("user create successfully")
         }
       };
-      xhttp.open("GET", "http://localhost:3001/transactions", true)
-      xhttp.send();
+      xhttp.open("POST", "http://localhost:3001/user", true);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send("username=" + username);      
     }
-
-
   </script>
 </body>
 </html>
+
