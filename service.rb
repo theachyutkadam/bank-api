@@ -1,4 +1,3 @@
-
 require 'active_record'
 require 'sinatra'
 
@@ -17,7 +16,10 @@ end
 
 before do
   puts params
-  headers 'Access-Control-Allow-Origin' => "*"
+  # headers 'Access-Control-Allow-Origin' => "*"
+  headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+  headers['Access-Control-Allow-Origin'] = '*'
+  headers['Access-Control-Allow-Headers'] = 'accept, authorization, origin'
 end
 
 get "/health-check" do
@@ -77,7 +79,8 @@ get "/users" do
 end
 
 post "/user" do
-  User.create(username: params[:username], password: params[:password], balance: params[:balance], account_no: "000#{User.count}")
+  puts params
+  User.create(username: params[:username], password: params[:password], balance: params[:balance], account_no: "11201330780#{User.count}")
   status 201
   {message: "User created"}.to_json
 end
@@ -99,6 +102,17 @@ put "/user/:id" do
     status 200
     user.update(params)
     {user: user}.to_json
+  else
+    status 404
+    {user: "User not found"}.to_json
+  end
+end
+
+options "/user/:id" do
+  user = User.find_by_id(params[:id])
+  if user
+    status 200
+    user.destroy
   else
     status 404
     {user: "User not found"}.to_json

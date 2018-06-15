@@ -4,13 +4,18 @@
   <title>bank service</title>
 </head>
 <body>
-  <h4>this is try</h4>
-  <input id="username" type="input" name="username", >
-  <button onclick="showUsers()">Users</button>
-  <button onclick="createUser()">Create User</button><br>
-  <p id="users"></p>
+  <input id="username" type="input", placeholder="Enter Username">
+  <input id="password" type="input", placeholder="Enter Password">
+  <input id="balance" type="input", placeholder="Enter Balance">
+  <button onclick="createUser()">Create User</button><br><br>
+  <button onclick="showUsers()">Show Users</button><br><br>
+  <input id="userid" type="input", placeholder="Enter User id">
+  <button onclick="selectUser()">Fetch User</button>
+
   <p id="create"></p>
+  <p id="users"></p>
   <script>
+
     function showUsers() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
@@ -24,7 +29,8 @@
 
     function createUser() {
       username = document.getElementById("username").value;
-      console.log(username);
+      password = document.getElementById("password").value;
+      balance = document.getElementById("balance").value;
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 201) {
@@ -33,9 +39,35 @@
       };
       xhttp.open("POST", "http://localhost:3001/user", true);
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.send("username=" + username);      
+      xhttp.send("username=" +username + "&password=" + password + "&balance=" + balance);
+    }
+
+    function selectUser() {
+      id = document.getElementById("userid").value;
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("users").innerHTML = (this.responseText + "<button value="+id+" onclick='deleteUser(this)'>Delete User</button>&nbsp;" + "<button onclick='updateUser()'>Update User</button>")
+        }
+      };
+      xhttp.open("GET", "http://localhost:3001/user/"+ id, true);
+      xhttp.send();
+    }
+
+    function deleteUser(element) {
+      id = element.value;
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        // if (this.readyState == 4 && this.status == 200) {
+        //   alert ("user delete successfully")
+        // else
+        //   alert ("user delete successfully")
+        // }
+      };
+      url = ("http://localhost:3001/user/" + id);
+      xhttp.open("DELETE", url, true);
+      xhttp.send();
     }
   </script>
 </body>
 </html>
-
