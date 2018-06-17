@@ -40,9 +40,8 @@ end
 get "/transaction/:id" do
   transaction = Transaction.find_by_id(params[:id])
   if transaction
-    status 201
+    status 200
     {transaction: transaction}.to_json
-    {message: "Transaction find"}.to_json
   else
     status 404
     {transaction: "Transaction not found"}.to_json
@@ -61,12 +60,21 @@ put "/transaction/:id" do
   end
 end
 
-delete "/transaction/:id" do
+# delete "/transaction/:id" do
+#   transaction = Transaction.find_by_id(params[:id])
+#   if transaction
+#     status 200
+#     transaction.destroy
+#   else
+#     status 404
+#     {transaction: "Transaction not found"}.to_json
+#   end
+# end
+options "/transaction/:id" do
   transaction = Transaction.find_by_id(params[:id])
   if transaction
     status 200
     transaction.destroy
-    {message: "Transaction Delete"}.to_json
   else
     status 404
     {transaction: "Transaction not found"}.to_json
@@ -119,13 +127,13 @@ options "/user/:id" do
   end
 end
 
-delete "/user/:id" do
-  user = User.find_by_id(params[:id])
-  if user
-    status 200
-    user.destroy
-  else
-    status 404
-    {user: "User not found"}.to_json
-  end
-end
+# delete "/user/:id" do
+#   user = User.find_by_id(params[:id])
+#   if user
+#     status 200
+#     user.destroy
+#   else
+#     status 404
+#     {user: "User not found"}.to_json
+#   end
+# end

@@ -1,73 +1,145 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>bank service</title>
-</head>
-<body>
-  <input id="username" type="input", placeholder="Enter Username">
-  <input id="password" type="input", placeholder="Enter Password">
-  <input id="balance" type="input", placeholder="Enter Balance">
-  <button onclick="createUser()">Create User</button><br><br>
-  <button onclick="showUsers()">Show Users</button><br><br>
-  <input id="userid" type="input", placeholder="Enter User id">
-  <button onclick="selectUser()">Fetch User</button>
+  <head>
+    <title>bank service</title>
+  </head>
+  <body>
+    <input id="username" type="input", placeholder="Enter Username">
+    <input id="password" type="input", placeholder="Enter Password">
+    <input id="balance" type="input", placeholder="Enter Balance">
+    <button onclick="createUser()">Create User</button><br><br>
+    <button onclick="showUsers()">Show Users</button><br><br>
+    <input id="userid" type="input", placeholder="Enter User id">
+    <button onclick="selectUser()">Fetch User</button><br><br><br>
 
-  <p id="create"></p>
-  <p id="users"></p>
-  <script>
+    <input id="particular" type="input", placeholder="Enter particular">
+    <input id="debit" type="input", placeholder="Enter debit">
+    <input id="credit" type="input", placeholder="Enter credit">
+    <input id="closing_balance" type="input", placeholder="Enter closing_Balance">
+    <button onclick="createTransaction()">Create transaction</button><br><br>
+    <button onclick="showTransactions()">Show transaction</button><br><br>
+    <input id="transactionid" type="input", placeholder="Enter Transaction id">
+    <button onclick="selectTransaction()">Fetch transaction</button>
 
-    function showUsers() {
+    <p id="create"></p>
+    <p id="users"></p>
+    <p id="transactions"></p>
+    <script>
+
+    function showTransactions() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("users").innerHTML = this.responseText;
+          document.getElementById("transactions").innerHTML = this.responseText;
         }
       };
-      xhttp.open("GET", "http://localhost:3001/users", true);
+      xhttp.open("GET", "http://localhost:3001/transactions", true);
       xhttp.send();
     }
 
-    function createUser() {
-      username = document.getElementById("username").value;
-      password = document.getElementById("password").value;
-      balance = document.getElementById("balance").value;
+    function createTransaction() {
+      particular = document.getElementById("particular").value;
+      debit = document.getElementById("debit").value;
+      credit = document.getElementById("credit").value;
+      closing_balance = document.getElementById("closing_balance").value
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 201) {
-          alert ("user create successfully")
+        if (this.readState == 4 && this.status == 201) {
+          alert ("transaction successfully create")
         }
       };
-      xhttp.open("POST", "http://localhost:3001/user", true);
+      xhttp.open("POST", "http://localhost:3001/transaction", true);
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.send("username=" +username + "&password=" + password + "&balance=" + balance);
+      xhttp.send("particular=" + particular + "&debit=" + debit + "&credit=" + credit + "&closing_balance=" + closing_balance);
     }
 
-    function selectUser() {
-      id = document.getElementById("userid").value;
+    function selectTransaction() {
+      id = document.getElementById("transactionid").value;
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("users").innerHTML = (this.responseText + "<button value="+id+" onclick='deleteUser(this)'>Delete User</button>&nbsp;" + "<button onclick='updateUser()'>Update User</button>")
+          document.getElementById("transactions").innerHTML = (this.responseText + "<button value="+id+" onclick='deleteTransaction(this)'>Delete Transaction</button>&nbsp;" + "<button value="+id+" onclick='updateTransaction(this)'>Update Transaction</button>")
         }
       };
-      xhttp.open("GET", "http://localhost:3001/user/"+ id, true);
+      xhttp.open("GET", "http://localhost:3001/transaction/"+ id, true);
       xhttp.send();
     }
 
-    function deleteUser(element) {
+    function deleteTransaction(element){
       id = element.value;
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
-        // if (this.readyState == 4 && this.status == 200) {
-        //   alert ("user delete successfully")
-        // else
-        //   alert ("user delete successfully")
-        // }
+        if (this.readyState == 4 && this.status == 200) {
+          alert("record delete successfully");
+        }
       };
-      url = ("http://localhost:3001/user/" + id);
+      url = ("http://localhost:3001/transaction/" +id);
       xhttp.open("DELETE", url, true);
       xhttp.send();
     }
-  </script>
-</body>
+
+      function showUsers() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("users").innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", "http://localhost:3001/users", true);
+        xhttp.send();
+      }
+
+      function createUser() {
+        username = document.getElementById("username").value;
+        password = document.getElementById("password").value;
+        balance = document.getElementById("balance").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 201) {
+            alert ("user create successfully")
+          }
+        };
+        xhttp.open("POST", "http://localhost:3001/user", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("username=" +username + "&password=" + password + "&balance=" + balance);
+      }
+
+      function selectUser() {
+        id = document.getElementById("userid").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("users").innerHTML = (this.responseText + "<button value="+id+" onclick='deleteUser(this)'>Delete User</button>&nbsp;" + "<button onclick='updateUser(this)'>Update User</button>")
+          }
+        };
+        xhttp.open("GET", "http://localhost:3001/user/"+ id, true);
+        xhttp.send();
+      }
+
+      function deleteUser(element) {
+        id = element.value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            alert ("user delete successfully")
+          }
+        };
+        url = ("http://localhost:3001/user/" + id);
+        xhttp.open("DELETE", url, true);
+        xhttp.send();
+      }
+
+      function updateUser(element) {
+        id = element.value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200){
+            alert("user delete successfully")
+          }
+        };
+        xhttp.open("PUT", url, true);
+        xhttp.send();
+      }
+    </script>
+  </body>
 </html>
