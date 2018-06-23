@@ -49,6 +49,7 @@ get "/transaction/:id" do
 end
 
 put "/transaction/:id" do
+  puts "****************patch method***********************"
   transaction = Transaction.find_by_id(params[:id])
   if transaction
     status 201
@@ -60,17 +61,7 @@ put "/transaction/:id" do
   end
 end
 
-# delete "/transaction/:id" do
-#   transaction = Transaction.find_by_id(params[:id])
-#   if transaction
-#     status 200
-#     transaction.destroy
-#   else
-#     status 404
-#     {transaction: "Transaction not found"}.to_json
-#   end
-# end
-options "/transaction/:id" do
+delete "/transaction/:id" do
   transaction = Transaction.find_by_id(params[:id])
   if transaction
     status 200
@@ -80,6 +71,16 @@ options "/transaction/:id" do
     {transaction: "Transaction not found"}.to_json
   end
 end
+# options "/transaction/:id" do
+#   transaction = Transaction.find_by_id(params[:id])
+#   if transaction
+#     status 200
+#     transaction.destroy
+#   else
+#     status 404
+#     {transaction: "Transaction not found"}.to_json
+#   end
+# end
 
 get "/users" do
   users = User.all
