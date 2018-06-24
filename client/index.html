@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>bank service</title>
+    <script src="transaction.js" charset="utf-8"></script>
+    <script src="user.js" charset="utf-8"></script>
+  </head>
+
+  <body>
+    <input id="username" type="input", placeholder="Enter Username">
+    <input id="password" type="input", placeholder="Enter Password">
+    <input id="balance" type="input", placeholder="Enter Balance">
+    <button onclick="createUser()">Create User</button><br><br>
+    <button onclick="showUsers()">Show Users</button><br><br>
+
+    <input id="userid" type="input", placeholder="Enter User id">
+    <button onclick="selectUser()">Fetch User</button><br><br><br>
+
+    <input id="particular" type="input", placeholder="Enter particular">
+    <input id="debit" type="input", placeholder="Enter debit">
+    <input id="credit" type="input", placeholder="Enter credit">
+    <input id="closing_balance" type="input", placeholder="Enter closing_Balance">
+    <button onclick="createTransaction()">Create transaction</button><br><br>
+    <button onclick="showTransactions()">Show transaction</button><br><br>
+
+    <input id="transactionid" type="input" placeholder="Enter Transaction id" value="11">
+    <button onclick="selectTransaction()">Fetch transaction</button>
+
+    <p id="create"></p>
+    <p id="users"></p><br>
+    <p id="transactions"></p><br>
+  </body>
+</html>
