@@ -1,7 +1,7 @@
 var SERVICE = "http://localhost:3001/"
+var xhttp = new XMLHttpRequest();
 
 function showUsers() {
-  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("users").innerHTML = this.responseText;
@@ -16,7 +16,6 @@ function createUser() {
   username = document.getElementById("username").value;
   password = document.getElementById("password").value;
   balance = document.getElementById("balance").value;
-  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 201) {
       alert ("User created successfully")
@@ -30,7 +29,6 @@ function createUser() {
 
 function selectUser() {
   id = document.getElementById("userid").value;
-  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("users").innerHTML = (this.responseText + "<button value="+id+" onclick='deleteUser(this)'>Delete User</button>&nbsp;" + "<button value= "+id+" onclick='editUser(this)'>Edit User</button>")
@@ -43,7 +41,6 @@ function selectUser() {
 
 function deleteUser(element) {
   id = element.value;
-  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       alert ("User delete successfully")
@@ -57,7 +54,6 @@ function deleteUser(element) {
 function editUser(element) {
   id = element.value;
   console.log(id);
-  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200){
       document.getElementById("users").innerHTML = (this.responseText + "<br><input type='text' id='username'>&nbsp;" + "<input type='text' id='password'>"+"<button>Edit User</button>")

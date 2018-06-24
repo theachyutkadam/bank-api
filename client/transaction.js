@@ -1,7 +1,7 @@
 var SERVICE = "http://localhost:3001/"
+var xhttp = new XMLHttpRequest();
 
 function showTransactions() {
-  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("transactions").innerHTML = this.responseText;
@@ -17,10 +17,10 @@ function createTransaction() {
   debit = document.getElementById("debit").value;
   credit = document.getElementById("credit").value;
   closing_balance = document.getElementById("closing_balance").value
-  var xhttp = new XMLHttpRequest();
+
   xhttp.onreadystatechange = function() {
-    if (this.readState == 4 && this.status == 201) {
-      alert ("transaction successfully create")
+    if (this.status == 201) {
+      alert("Transaction successfully create");
     }
   };
   url = (SERVICE + "transaction")
@@ -31,7 +31,6 @@ function createTransaction() {
 
 function selectTransaction() {
   id = document.getElementById("transactionid").value;
-  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var transaction = JSON.parse(this.response).transaction;
@@ -53,23 +52,18 @@ function updateTransaction() {
   particular = document.getElementById("edit_particular").value;
   debit = document.getElementById("edit_debit").value;
   credit = document.getElementById("edit_credit").value;
-  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
-    console.log(particular);
-    console.log(debit);
-    console.log(credit);
-    if (this.readyState ==4 && this.status == 200) {
+    if (this.readyState == 4 && this.status == 200) {
       alert("Record is Updated successfully");
     }
   };
-  url = (SERVICE + "transaction/" +id);
+  url = (SERVICE + "transaction/" + id);
   xhttp.open("PUT", url, true);
   xhttp.send("particular=" + edit_particular + "&debit=" + edit_debit + "&credit" + edit_credit);
 }
 
 function deleteTransaction(element){
   id = element.value;
-  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       alert("Transaction deleted successfully");
